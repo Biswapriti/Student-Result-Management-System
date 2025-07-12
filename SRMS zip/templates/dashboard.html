@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication-Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>Dashboard</h1>
+        <p>Welcome to your dashboard, {{ username }}!</p>
+    </header>
+    <h2>Profile Information</h2>
+    <section class="user-info">
+        
+        <p><span class="label">Username</span> {{ username }}</p>
+        <p><span class="label">Email</span> {{ email }}</p>
+        <p><span class="label">Course</span> {{ course }}</p>
+        <p><span class="label">Year</span> {{ year }}</p>
+        <p><span class="label">Department</span> {{ department }}</p>
+    </section>
+
+    <section class="results">
+        <h2>Your Results</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Marks</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for subject, marks in results.items() %}
+                <tr>
+                    <td>{{ subject }}</td>
+                    <td>{{ marks }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p><span class="label">Total Marks:</span> {{ total_marks }}</p>
+        <p><span class="label">Percentage:</span> {{ percentage }}%</p>
+        <p><span class="label">Grade:</span> {{ grade }}</p>
+    </section>
+
+
+</body>
+
+</html>

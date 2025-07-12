@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='marks.css') }}">
+</head>
+
+<body>
+    <h2>Add Marks (Admin Only)</h2>
+    <form method="post">
+        <label>Student Username:</label>
+        <input type="text" name="username" value="{{ username }}" required readonly>
+        <label>Department:</label>
+        <input type="text" name="department" value="{{ department }}" readonly required>
+        <label>Year:</label>
+        <input type="text" name="year" value="{{ year }}" readonly required>
+        <label>Subject:</label>
+        <select id="subject" name="subject" required>
+            <option value="">Select Subject</option>
+        </select>
+        <label>Marks:</label>
+        <input type="number" name="marks" required>
+        <button type="submit">Add Marks</button>
+    </form>
+    <p>{{ msg }}</p>
+
+    <script>
+        const subjects = {
+            "Computer Science": {
+                "1st": ["Discrete Mathematics", "Basic Electrical Electronics","English","Basic Mechanical Engineering","Physics","Computer Programming"],
+                "2nd": ["Data Structures","Object Oriented Programming Language","Digital Logic Design","Computer Organization And Architecture","Mathematics II","Data Communication"],
+                "3rd": ["Operating Systems", "Database Management Systems", "Software Engineering", "Cloud Computing", "Formal Languages and Automata Theory","Artificial Inteligence And Machine Learning"],
+                "4th": ["Cyber Law And Ethics", "Entrepreneurship Development", " Renewable Power And Generation Systems", "Green Technology", "Internet Of Things","Minor Project"]
+            },
+            "Mechanical": {
+                "1st": ["Engineering Mechanics", "Mathematics I"],
+                "2nd": ["Thermodynamics", "Fluid Mechanics"],
+                "3rd": ["Machine Design", "Heat Transfer"],
+                "4th": ["Automobile Engineering", "Robotics"]
+            },
+            "Civil": {
+                "1st": ["Engineering Drawing", "Mathematics I"],
+                "2nd": ["Structural Analysis", "Geotechnical Engineering"],
+                "3rd": ["Transportation Engineering", "Water Resources"],
+                "4th": ["Construction Management", "Environmental Engineering"]
+            },
+            "Electrical": {
+                "1st": ["Basic Electrical", "Mathematics I"],
+                "2nd": ["Circuit Theory", "Electromagnetics"],
+                "3rd": ["Power Systems", "Control Systems"],
+                "4th": ["Electrical Machines", "Power Electronics"]
+            }
+        };
+
+        window.onload = function() {
+            const dept = "{{ department|trim }}";
+            const year = "{{ year|trim }}";
+            const subjSelect = document.getElementById('subject');
+            subjSelect.innerHTML = '<option value="">Select Subject</option>';
+            if(subjects[dept] && subjects[dept][year]) {
+                subjects[dept][year].forEach(subj => {
+                    subjSelect.innerHTML += `<option value="${subj}">${subj}</option>`;
+                });
+            }
+        };
+    </script>
+</body>
+
+</html>
+<!-- templates/add_marks.html -->

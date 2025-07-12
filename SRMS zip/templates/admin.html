@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <h1>Student List</h1>
+    
+    <form method="get" style="margin-bottom: 20px;">
+        <input type="text" name="search" placeholder="Search " value="{{ request.args.get('search', '') }}">
+        <button type="submit"><i class="fas fa-search"></i> Search</button>
+        <a href="{{ url_for('admin') }}"><button type="button"><i class="fas fa-redo"></i> Reset</button></a>
+    </form>
+
+    <table border="1">
+        <tr>
+            <th>USERNAME</th>
+            <th>EMAIL</th>
+            <th>DEPARTMENT</th>
+            <th>COURSE</th>
+            <th>YEAR</th>
+            <th>ADD MARKS</th>
+        </tr>
+        {% if students %}
+            {% for student in students %}
+            <tr>
+                <td>{{ student.username }}</td>
+                <td>{{ student.email }}</td>
+                <td>{{ student.department }}</td>
+                <td>{{ student.course }}</td>
+                <td>{{ student.year }}</td>
+                <td>
+                    <a href="{{ url_for('marks') }}?username={{ student.username }}">Add Marks</a>
+                </td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="6" style="color: rgb(3, 3, 3);font-weight: bolder;font-size: 20px; text-align: center;">No students found</td>
+            </tr>
+        {% endif %}
+    </table>
+</body>
+</html>

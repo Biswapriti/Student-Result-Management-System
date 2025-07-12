@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1 class="title">STUDENT MANAGEMENT SYSTEM</h1>
+    <h1>Authentication</h1>
+    <p>Welcome to the authentication page!</p>
+
+    {% with messages = get_flashed_messages(category_filter=["error"]) %}
+      {% if messages %}
+        <ul>
+          {% for message in messages %}
+            <li style="color:red;">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <form action="/index" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+        <label>
+            <input type="radio" name="role" value="student" checked> Student
+        </label>
+        <label>
+            <input type="radio" name="role" value="admin"> Admin
+        </label>
+        <br>
+        <button type="submit">Login</button>
+        <p>Are you a new user? <a href="{{ url_for('register') }}">Register here</a></p>
+        <p>Register as Admin? <a href="{{ url_for('admin_register') }}">Click here</a></p>
+    </form>
+</body>
+</html>
